@@ -23,10 +23,10 @@ with body:
     st_lottie(lottie, height=250, key="coding")
 
     left_column, right_column = st.columns(2)
-    with left_column:
+    with body:
         st.markdown("Temperature Sensor")
         st.write(f'<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2064592/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>',unsafe_allow_html=True,)
         
-    with right_column:
+    with body:
         st.markdown("Humidity Sensor")
         st.write(f'<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2064592/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>',unsafe_allow_html=True,)
