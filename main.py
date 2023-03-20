@@ -50,7 +50,6 @@ with body:
                     delta = recent - prev
                     st.metric("Temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                     prev = recent
-                    time.sleep(1)
                 placeholder.empty()
 
 
@@ -76,7 +75,6 @@ with body:
                     delta = recent - prev
                     st.metric("Humidity", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                     prev = recent
-                    time.sleep(1)
                 placeholder.empty()
 
 
@@ -103,5 +101,4 @@ with body:
                     delta = recent - prev
                     st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                     prev = recent
-                    time.sleep(1)
                 placeholder.empty()
