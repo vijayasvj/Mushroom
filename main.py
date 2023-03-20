@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 from streamlit_lottie import st_lottie
 import requests
+from multiprocessing import Process
 import time
 
 body = st.container()
@@ -29,76 +30,82 @@ with body:
         "Choose a sensor",
         ('Temperature', 'Humidity', 'Soil moisture'))
     if genre=='Temperature':
-        iou, left_column, right_column = st.columns([1,1,1])
-        with iou:
-            st.title("The temperature of "+ option+" is shown here.")
+        left_column, right_column = st.columns([1,1])
+        with left_column:
+            st.subheader("Temperature of "+ option+ " is here :")
+            placeholder = st.empty()
+            st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+            #st.title("The Soil Temperature of "+ option+" is shown here.")
         with right_column:
             st_lottie(temp_lottie, height=250, key="coding")
-        with left_column:
-            while True:
-                with placeholder.container():
-                    response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
-                    val = response.json()["feeds"][9]["field1"]
+    
+        while True:
+            response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
+            val = response.json()["feeds"][9]["field1"]
+            if val is None:
+                for i in range(9):
+                    val = response.json()["feeds"][9-i-1]["field1"]
                     if val is None:
-                        for i in range(9):
-                            val = response.json()["feeds"][9-i-1]["field1"]
-                            if val is None:
-                                continue
-                            else:
-                                break
-                    recent = float(val)
-                    delta = recent - prev
-                    st.metric("Temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
-                    prev = recent
-                placeholder.empty()
+                        continue
+                    else:
+                        break
+            recent = float(val)
+            delta = recent - prev
+            with placeholder.container():
+                st.metric("Temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+            prev = recent
 
 
     if genre=='Humidity':
-        iou, left_column, right_column = st.columns([1,1,1])
-        with iou:
-            st.title("The Humidity of "+ option+" is shown here.")
+        left_column, right_column = st.columns([1,1])
+        with left_column:
+            st.subheader("Humidity of "+ option+ " is here :")
+            placeholder = st.empty()
+            st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+            #st.title("The Soil Temperature of "+ option+" is shown here.")
         with right_column:
             st_lottie(hum_lottie, height=250, key="coding")
-        with left_column:
-            while True:
-                with placeholder.container():
-                    response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
-                    val = response.json()["feeds"][9]["field2"]
+    
+        while True:
+            response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
+            val = response.json()["feeds"][9]["field2"]
+            if val is None:
+                for i in range(9):
+                    val = response.json()["feeds"][9-i-1]["field2"]
                     if val is None:
-                        for i in range(9):
-                            val = response.json()["feeds"][9-i-1]["field2"]
-                            if val is None:
-                                continue
-                            else:
-                                break
-                    recent = float(val)
-                    delta = recent - prev
-                    st.metric("Humidity", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
-                    prev = recent
-                placeholder.empty()
+                        continue
+                    else:
+                        break
+            recent = float(val)
+            delta = recent - prev
+            with placeholder.container():
+                st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+            prev = recent
 
 
-                
     if genre=='Soil moisture':
-        iou, left_column, right_column = st.columns([1,1,1])
-        with iou:
-            st.title("The Soil Temperature of "+ option+" is shown here.")
+        left_column, right_column = st.columns([1,1])
+        with left_column:
+            st.subheader("Soil Moisture of "+ option+ " is here :")
+            placeholder = st.empty()
+            st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+            #st.title("The Soil Temperature of "+ option+" is shown here.")
         with right_column:
             st_lottie(soil_lottie, height=250, key="coding")
-        with left_column:
-            while True:
-                with placeholder.container():
-                    response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
-                    val = response.json()["feeds"][9]["field3"]
+    
+        while True:
+            response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
+            val = response.json()["feeds"][9]["field3"]
+            if val is None:
+                for i in range(9):
+                    val = response.json()["feeds"][9-i-1]["field3"]
                     if val is None:
-                        for i in range(9):
-                            val = response.json()["feeds"][9-i-1]["field3"]
-                            if val is None:
-                                continue
-                            else:
-                                break
-                    recent = float(val)
-                    delta = recent - prev
-                    st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
-                    prev = recent
-                placeholder.empty()
+                        continue
+                    else:
+                        break
+            recent = float(val)
+            delta = recent - prev
+            with placeholder.container():
+                st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+            prev = recent
+                
