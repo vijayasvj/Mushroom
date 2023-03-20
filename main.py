@@ -2,7 +2,6 @@ import streamlit as st
 import requests
 from streamlit_lottie import st_lottie
 import requests
-from multiprocessing import Process
 import time
 
 body = st.container()
@@ -81,6 +80,7 @@ with body:
                 placeholder.empty()
 
 
+                
     if genre=='Soil moisture':
         iou, left_column, right_column = st.columns([1,1,1])
         with iou:
