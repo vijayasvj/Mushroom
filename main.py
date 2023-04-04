@@ -34,7 +34,7 @@ with body:
         st.markdown('**Choose a sensor**')
         genre = st.radio(
         "Choose a sensor",
-        ('Temperature', 'Humidity', 'Soil moisture'), label_visibility="collapsed")
+        ('Temperature', 'Humidity', 'Soil temperature'), label_visibility="collapsed")
         placeholders = st.empty()
         st.markdown("""---""")
     #st.session_state.my_output = None
@@ -50,8 +50,8 @@ with body:
         pl1 = st.empty()
         pl2 = st.empty() 
         pl3 = st.empty()
-    #Soil moisture
-    if genre=='Soil moisture':
+    #Soil temperature
+    if genre=='Soil temperature':
         pl1 = st.empty()
         pl2 = st.empty() 
         pl3 = st.empty()
@@ -62,7 +62,7 @@ with body:
             with left_column:
                 st.subheader("Temperature of "+ option)
                 placeholder = st.empty()
-                st.caption("The number below the moisture level values denotes the change with respect to the previous reading.")
+                st.caption("The number below the temperature level values denotes the change with respect to the previous reading.")
                 st.write("###")
                 st.write("###")
                 st.write("###")
@@ -99,7 +99,7 @@ with body:
             with left_column:
                 st.subheader("Humidity of "+ option)
                 placeholder2 = st.empty()
-                st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+                st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
                 st.write("###")
                 st.write("###")
                 st.write("###")
@@ -126,20 +126,20 @@ with body:
             recent = float(val)
             delta = recent - prev
             with placeholder2.container():
-                st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
             prev = recent
 
-    if genre=='Soil moisture':
+    if genre=='Soil temperature':
        
         with pl1:
             left_column, right_column = st.columns(2)
             
             with left_column:
-                st.markdown('**Select moisture sensor**')
-                s1 = st.checkbox('Soil moisture Sensor 1', value=True)
-                s2 = st.checkbox('Soil moisture Sensor 2', value=True)
-                s3 = st.checkbox('Soil moisture Sensor 3', value=True)
-                s4 = st.checkbox('Soil moisture Sensor 4', value=True)
+                st.markdown('**Select temperature sensor**')
+                s1 = st.checkbox('Soil temperature Sensor 1', value=True)
+                s2 = st.checkbox('Soil temperature Sensor 2', value=True)
+                s3 = st.checkbox('Soil temperature Sensor 3', value=True)
+                s4 = st.checkbox('Soil temperature Sensor 4', value=True)
             with right_column:
                 st_lottie(soil_lottie, height=200, key="coding2")
 
@@ -149,13 +149,13 @@ with body:
                 if s1 == True:
                     st.subheader("Reading from Sensor 1")
                     placeholders1 = st.empty()
-                    #st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+                    #st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
                     #st.title("The Soil Temperature of "+ option+" is shown here.")
                    
                 if s2 == True:
                     st.subheader("Reading from Sensor 2")
                     placeholders2 = st.empty()
-                    #st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+                    #st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
                     #st.title("The Soil Temperature of "+ option+" is shown here.")
                    
 
@@ -163,17 +163,17 @@ with body:
                 if s3 == True:
                     st.subheader("Reading from Sensor 3")
                     placeholders3 = st.empty()
-                    #st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+                    #st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
                     #st.title("The Soil Temperature of "+ option+" is shown here.")
                 
                 if s4 == True:
                     st.subheader("Reading from Sensor 4")
                     placeholders4 = st.empty()
-                    #st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+                    #st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
                     #st.title("The Soil Temperature of "+ option+" is shown here.")
         
         with pl3:
-            st.markdown("The number below the moisture level values denotes the change with respect to the previous reading.")
+            st.markdown("The number below the temperature level values denotes the change with respect to the previous reading.")
         
         while True:
             response = requests.get('https://api.thingspeak.com/channels/2069682/feeds.json?api_key=HEXPBNQ6XQK0QXCA&results=10')
@@ -191,7 +191,7 @@ with body:
                 recent = float(val)
                 delta = recent - prev
                 with placeholders1.container():
-                    st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                    st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                 prev = recent
             
             if s2==True:
@@ -208,7 +208,7 @@ with body:
                 recent = float(val)
                 delta = recent - prev
                 with placeholders2.container():
-                    st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                    st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                 prev = recent
 
             if s3==True:
@@ -225,7 +225,7 @@ with body:
                 recent = float(val)
                 delta = recent - prev
                 with placeholders3.container():
-                    st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                    st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                 prev = recent
 
             if s4==True:
@@ -242,5 +242,5 @@ with body:
                 recent = float(val)
                 delta = recent - prev
                 with placeholders4.container():
-                    st.metric("Soil moisture", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                    st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
                 prev = recent
