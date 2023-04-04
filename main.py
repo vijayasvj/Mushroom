@@ -126,7 +126,7 @@ with body:
             recent = float(val)
             delta = recent - prev
             with placeholder2.container():
-                st.metric("Soil temperature", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
+                st.metric("Humidity", recent, delta=delta, delta_color="normal", help=None, label_visibility="visible")
             prev = recent
 
     if genre=='Soil temperature':
