@@ -371,11 +371,8 @@ def checkandmail():
         if r5s1>highsoiltemp or r5s2>highsoiltemp or r5s3>highsoiltemp or r5s4>highsoiltemp:
             mess = mess + "In Room-5, check all soil temperatures"'''
     if i == 0:
-        print(msg)
-        print(mess)
         jason={"title":msg,"message":mess}
         re = requests.get(url = "http://13.235.65.171:8080/trigger_notifi", json = jason)
-        print(re)
         
 
 
